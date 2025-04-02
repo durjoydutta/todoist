@@ -1,10 +1,11 @@
 <?php
-$hostname = "sql202.infinityfree.com";
-$username = "if0_38662848";
-$db = "if0_38662848_todoist";
-$pw = "L858LRI3bSPzk";
+$hostname = "localhost";
+$username = "root";
+$db = "todoist";
+$pw = "";
+$port = "3306";
 
-$con = mysqli_connect($hostname, $username, $pw, $db);
+$con = mysqli_connect($hostname, $username, $pw, $db, $port);
 
 if (!$con) {
     die("<br>Error connecting to database: " . mysqli_connect_error() . "<br>");
