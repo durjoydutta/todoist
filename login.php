@@ -29,7 +29,8 @@ session_start();
 include("database.php");
 if (isset($_POST["login"])) {
     if (!empty($_POST["username"] && !empty($_POST["password"]))) {
-        $query = "SELECT * FROM users WHERE username='$username' LIMIT 1"; // assuming username is unique
+        $username = mysqli_real_escape_string($con, $_POST["username"]);
+        $query = "SELECT * FROM users WHERE username='{$username}' LIMIT 1"; // assuming username is unique
         $result = mysqli_query($con, $query);
         $password = $_POST["password"];
         if ($result && mysqli_num_rows($result) > 0) {
@@ -40,6 +41,7 @@ if (isset($_POST["login"])) {
             // }
             if (password_verify($password, $stored_password)) {
                 $_COOKIE["username"] = $username;
+                $_SESSION["username"] = $username;
                 $_SESSION["role"] = $row["role"];
                 $_SESSION["id"] = $row["id"]; // update session id as user is successfull logged in
                 header("Location: index.php");
